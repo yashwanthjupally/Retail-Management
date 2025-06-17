@@ -15,8 +15,8 @@ It utilizes **Spring Boot** for the backend framework and integrates with **MySQ
 ## Technologies
 
 - **Spring Boot** (Java 11):
-   *Dependencies*:
-      - **JPA** , **MySQL Driver**(Java Persistence API) for MySQL integration
+   -**Dependencies**:
+      - **JPA** , **MySQL Driver**(Java Persistence API) for MySQL integration:
       - **Spring Data MongoDB** for MongoDB integration
       - **validation**  data validation using JPA and Hibernate
 - **MySQL** (for structured data like Store, Product, Inventory):
