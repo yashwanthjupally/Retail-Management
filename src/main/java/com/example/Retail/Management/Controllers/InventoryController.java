@@ -34,6 +34,7 @@ public class InventoryController {
                 inventoryRepository.save(inventory);
             }else {
                 map.put("message", "Data Already present in inventory");
+                return map;
             }
 
         }catch (DataIntegrityViolationException e){
@@ -46,6 +47,7 @@ public class InventoryController {
             System.out.println(e);
             return map;
         }
+        map.put("message", "Product added to inventory successfully");
         return map;
     }
 
@@ -67,7 +69,7 @@ public class InventoryController {
             return map;
         }
         else if (name.equals("null")){
-            map.put("product", productRepository.findProductByStoreId(storeId));
+            map.put("product", productRepository.findByCategoryAndStoreId(category, storeId));
             return map;
         }
         map.put("product", productRepository.findByNameAndCategory(name, category, storeId));

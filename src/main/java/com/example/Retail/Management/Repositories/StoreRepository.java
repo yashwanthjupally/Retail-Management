@@ -11,6 +11,7 @@ import java.util.List;
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
     Store findByid(Long id);
-    @Query
-    List<Store> findBySubname(String name);
+
+//    @Query("SELECT p FROM Store p WHERE LOWER(p.pname) LIKE LOWER(CONCAT('%', :pname, '%'))")
+//    List<Store> findBySubname(String pname);
 }

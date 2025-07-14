@@ -1,8 +1,5 @@
 package com.example.Retail.Management.Models;
 
-import jakarta.persistence.Entity;
-
-@Entity
 public class CombinedRequest {
 
     private Product product;

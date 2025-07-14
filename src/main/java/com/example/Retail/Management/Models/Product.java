@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -19,8 +19,20 @@ public class Product {
     private String category;
     @NotNull
     private Double price;
-    @NotNull
-    private String sku;
+
+    private String SKU;
+
+    public String getSKU() {
+        return SKU;
+    }
+
+    public void setSKU(String SKU) {
+        this.SKU = SKU;
+    }
+
+    public Product(String SKU) {
+        this.SKU = SKU;
+    }
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     @JsonManagedReference("inventory-product")
@@ -58,14 +70,6 @@ public class Product {
         this.price = price;
     }
 
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
     public List<Inventory> getInventories() {
         return inventories;
     }
@@ -77,10 +81,22 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String category, Double price, String sku) {
+    public Product(String name, String category, Double price, String SKU) {
         this.name = name;
         this.category = category;
         this.price = price;
-        this.sku = sku;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", SKU='" + SKU + '\'' +
+                ", inventories=" + inventories +
+                '}';
     }
 }

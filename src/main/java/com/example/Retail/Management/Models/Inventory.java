@@ -1,5 +1,6 @@
 package com.example.Retail.Management.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -9,22 +10,17 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JsonManagedReference("inventory-product")
-    @JoinColumn(name = "product_id")
-    private Product product;
-    @ManyToOne
-    @JsonManagedReference("inventory-store")
-    @JoinColumn(name = "store_id")
-    private Store store;
     private Integer stockLevel;
 
-    public Inventory(Long id, Product product, Store store, Integer stockLevel) {
-        this.id = id;
-        this.product = product;
-        this.store = store;
-        this.stockLevel = stockLevel;
-    }
+    @ManyToOne
+    @JsonBackReference("inventory-product")
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JsonBackReference("inventory-store")
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     public Long getId() {
         return id;
@@ -56,5 +52,24 @@ public class Inventory {
 
     public void setStockLevel(Integer stockLevel) {
         this.stockLevel = stockLevel;
+    }
+
+    public Inventory() {
+    }
+
+    public Inventory(Product product, Store store, Integer stockLevel) {
+        this.product = product;
+        this.store = store;
+        this.stockLevel = stockLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "id=" + id +
+                ", stockLevel=" + stockLevel +
+                ", product=" + (product != null ? product.getId() : "null") +
+                ", store=" + (store != null ? store.getId() : "null") +
+                '}';
     }
 }

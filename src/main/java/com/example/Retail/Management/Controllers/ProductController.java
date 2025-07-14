@@ -5,7 +5,6 @@ import com.example.Retail.Management.Repositories.InventoryRepository;
 import com.example.Retail.Management.Repositories.ProductRepository;
 import com.example.Retail.Management.Service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,19 +30,14 @@ public class ProductController {
             map.put("message", "product already present in database");
         }
         else {
-            try {
-                productRepository.save(product);
-                map.put("message", "Product added successfully");
-            }
-            catch (DataIntegrityViolationException e) {
-                map.put("message", "SKU should be unique");
-            }
+            productRepository.save(product);
+            map.put("message", "Product added successfully");
         }
         return map;
     }
 
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public Map<String, Object> findById(@PathVariable Long id){
 
         Map<String, Object> map = new HashMap<>();
@@ -53,8 +47,8 @@ public class ProductController {
         return map;
     }
 
-    @PutMapping()
-    public Map<String, String> updateProduct(@PathVariable Product product){
+    @PutMapping
+    public Map<String, String> updateProduct(@RequestBody Product product){
         Map<String, String> map = new HashMap<>();
         try {
             productRepository.save(product);
@@ -65,19 +59,22 @@ public class ProductController {
         return map;
     }
 
-    @GetMapping("/category/{name}/{category}")
-    public Map<String, Object> filterByCategory(@PathVariable  String name, @PathVariable String category){
+    @GetMapping("/category/{category}")
+    public Map<String, Object> filterByCategory(@PathVariable String category){
         Map<String, Object> map = new HashMap<>();
-        if(name.equals("null")){
-            map.put("products", productRepository.findByCategory(category));
-            return map;
-        }
-        else if(category.equals("null"))
+        if(category.equals("null"))
         {
-            map.put("products", productRepository.findProductBySubName(name));
+            map.put("products", "No such category exits");
             return map;
         }
-        map.put("products",productRepository.findProductBySubNameAndCategory(name,category));
+        map.put("products",productRepository.findByCategory(category));
+        return map;
+    }
+
+    @GetMapping("/price/{min}-{max}")
+    public Map<String, Object> filterByPrice(@PathVariable Double min, @PathVariable Double max) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("products", productRepository.findByPriceBetween(min, max));
         return map;
     }
 
@@ -111,10 +108,10 @@ public class ProductController {
        if(service.validateProductId(id)){
            inventoryRepository.deleteByProductId(id);
            productRepository.deleteById(id);
-           map.put("message", "product "+ id + "product deleted successfully");
+           map.put("message", "product" + "id "+ id + "deleted successfully");
        }
        else {
-           map.put("message", "product " + id + "didn't exist");
+           map.put("message", "product" + "id " + id + "didn't exist");
        }
        return map;
     }

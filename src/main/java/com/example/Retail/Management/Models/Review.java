@@ -1,16 +1,16 @@
 package com.example.Retail.Management.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Document(collation = "reviews")
+
+@Document(collection = "reviews")
 public class Review {
 
     @Id
-    @NotNull
+    private String id;
+
     private Long customerId;
     @NotNull
     private Long productId;
@@ -20,7 +20,9 @@ public class Review {
     private Integer rating;
     private String comment;
 
-    public Review(Long customerId, Long productId, Long storeId, Integer rating, String comment) {
+
+    public Review(String id, Long customerId, Long productId, Long storeId, Integer rating, String comment) {
+        this.id = id;
         this.customerId = customerId;
         this.productId = productId;
         this.storeId = storeId;
@@ -30,6 +32,14 @@ public class Review {
 
     public Long getCustomerId() {
         return customerId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setCustomerId(Long customerId) {

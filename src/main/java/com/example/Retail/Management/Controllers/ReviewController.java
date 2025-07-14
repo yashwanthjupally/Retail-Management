@@ -20,21 +20,21 @@ import java.util.Map;
 public class ReviewController {
 
     @Autowired
-    ReviewRepository reviewRepository;
+    private ReviewRepository reviewRepository;
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @GetMapping("/{storeId}/{productId}")
     public Map<String, Object> getReviews(@PathVariable Long storeId, @PathVariable Long productId){
 
         Map<String, Object> map = new HashMap<>();
-        List<Review> reviews = reviewRepository.findByProductIdANDStoreId(storeId, productId);
+        List<Review> reviews = reviewRepository.findByProductIdAndStoreId(storeId, productId);
 
         List<Map<String, Object>> reviewsWithCustomerNames = new ArrayList<>();
 
         for (Review review : reviews){
             Map<String, Object> reviewMap = new HashMap<>();
-            reviewMap.put("reviews", review.getComment());
+            reviewMap.put("review", review.getComment());
             reviewMap.put("rating", review.getRating());
 
             Customer customer = customerRepository.findByid(review.getCustomerId());
@@ -44,9 +44,6 @@ public class ReviewController {
                 reviewMap.put("customerName", "unknown");
             }
             reviewsWithCustomerNames.add(reviewMap);
-            map.put("reviews", reviewsWithCustomerNames);
-
-            return map;
         }
         map.put("reviews", reviewsWithCustomerNames);
         return map;

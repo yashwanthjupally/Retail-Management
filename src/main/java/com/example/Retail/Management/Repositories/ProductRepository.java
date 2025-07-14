@@ -26,7 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByNameLike(String pname, Long storeId);
 
     @Query("SELECT i.product FROM Inventory i WHERE i.store.id = :storeId AND " +
-            "LOWER(i.product.name) LIKE LOWER(CONCAT('%', :pname, '%')) AND" +
+            "LOWER(i.product.name) LIKE LOWER(CONCAT('%', :pname, '%')) AND " +
             "i.product.category = :category")
     List<Product> findByNameAndCategory(String pname, String category, Long storeId);
 

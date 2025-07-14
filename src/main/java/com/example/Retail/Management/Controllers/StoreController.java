@@ -2,7 +2,6 @@ package com.example.Retail.Management.Controllers;
 
 import com.example.Retail.Management.DTO.PlaceOrderRequestDTO;
 import com.example.Retail.Management.Models.Store;
-import com.example.Retail.Management.Repositories.ReviewRepository;
 import com.example.Retail.Management.Repositories.StoreRepository;
 import com.example.Retail.Management.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
