@@ -1,28 +1,80 @@
-# Retail Management
+# Retail Management System
 
-A robust backend system for a retail management system using Java, Spring Boot and MySQL
+A backend system for managing retail operations such as products, inventory, and orders, built with Java, Spring Boot, MySQL, and MongoDB (containerized with Docker).
 
----
+## Features
 
-## Description
-
-This is a **Retail Inventory Backend Microservice** designed to support a multi-store retail business. 
-The backend exposes a RESTful API for managing product details, inventory details, tracking and order management. 
-It utilizes **Spring Boot** for the backend framework and integrates with **MySQL** for structured data and **MongoDB** for unstructured data.
-
----
+- **Product Management**: Add, update, and remove products.
+- **Inventory Tracking**: Manage stock levels across stores.
+- **Order Processing**: Handle order creation and updates.
+- **Search**: Filter by price, category, and store.
+- **Scalability**: MongoDB is containerized for easy scaling.
 
 ## Technologies
 
-- **Spring Boot** (Java 11):
-   - **Dependencies**:
-      - **JPA** , **MySQL Driver**(Java Persistence API) for MySQL integration:
-      - **Spring Data MongoDB** for MongoDB integration
-      - **validation**  data validation using JPA and Hibernate
-- **MySQL** (for structured data like Store, Product, Inventory):
-- **MongoDB** (for unstructured data like Order logs and metadata):
-  
----
+- **Backend**: Spring Boot (Java 11)
+- **Databases**: 
+  - MySQL for structured data (Products, Inventory).
+  - MongoDB for unstructured data (Orders, Logs).
+- **Tools**: Docker (for MongoDB), Maven, Git.
 
+## Prerequisites
 
+- Java JDK 11+
+- Maven 3.6+
+- MySQL 8.0+
+- MongoDB 4.4+ or Docker
 
+## Installation
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/yashwanthjupally/Retail-Management.git
+   cd Retail-Management
+2. Install dependencies:
+   ```bash
+   mvn clean install
+
+3. Set up MySQL & Mongo:
+      Create a database retail_db.
+      Update application.properties with your MySQL credentials.
+      Set up MongoDB
+
+ 4. Configuration
+      In `src/main/resources/application.properties`, configure the following:
+      
+      ```properties
+      # MySQL Configuration
+      spring.datasource.url=jdbc:mysql://localhost:3306/retail_db?useSSL=false&serverTimezone=UTC
+      spring.datasource.username=root
+      spring.datasource.password=your_password
+      
+      # MongoDB Configuration
+      spring.data.mongodb.uri=mongodb://localhost:27017/retail_orders
+      
+      # Server Configuration
+      server.port=8080
+
+    
+6. Running the Application
+
+      Run with Maven:
+      mvn spring-boot:run
+      The app will be available at http://localhost:8080
+
+   API Endpoints
+
+      Base URL: /api/v1
+
+      Products:
+
+         GET /products: Retrieve all products (supports search filters like name, priceMin, priceMax).
+
+      Inventory:
+
+         GET /inventory: Get stock levels for each product.
+
+      Orders:
+
+         POST /orders: Create a new order.
+    
