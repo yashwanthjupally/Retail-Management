@@ -2,6 +2,9 @@
 
 A backend system for managing retail operations such as products, inventory, and orders, built with Java, Spring Boot, MySQL, and MongoDB (containerized with Docker).
 
+<img width="1581" height="734" alt="Screenshot 2025-07-01 233020" src="https://github.com/user-attachments/assets/4acd0a6a-7959-445c-8d9d-97273c84038f" />
+
+
 ## Features
 
 - **Product Management**: Add, update, and remove products.
